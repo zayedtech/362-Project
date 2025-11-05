@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 
-// This is the actual main function that will be used later to combine all the other main functions in the peripherals folders
+// This is the actual main function that will be used later to call all the functions from our peripherals
 
 int main() {
     
