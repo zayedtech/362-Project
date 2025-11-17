@@ -49,7 +49,6 @@ int main() {
         uint8_t speed = 0x01;  
     seesaw_write(NEOTRELLIS_ADDR, SEESAW_NEOPIXEL_BASE, NEOPIXEL_SPEED, &speed, 1);
     sleep_ms(300);
-<<<<<<< HEAD:I2C/main.c
 
 
     neotrellis_rainbow_startup();
@@ -81,9 +80,4 @@ while (1) {
 }
 
     return 0;
-=======
-    i2c_setup();
-    i2c_scan();
-    while(1) tight_loop_contents();
->>>>>>> 92668dc1444984970eb213a8b9e7f4b8613960b6:I2C/I2C_testing.c
 }
