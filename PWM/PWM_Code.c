@@ -170,6 +170,32 @@ void apply_decay_envelope(uint8_t base_r, uint8_t base_g, uint8_t base_b) {
 
 // ========================== NOTE PLAY/STOP ===============================
 
+
+/*
+    void convertIdxToFrequencyAndPlay(int idx) 
+{
+    if(idx == 0)   play_note(NOTE_C4);
+    if(idx ==1 )  play_note(NOTE_CS4);
+     if(idx == 2)   play_note(NOTE_D4);
+    if(idx == 3)  play_note(NOTE_DS4);
+     if(idx == 4)   play_note(NOTE_E4);
+    if(idx == 5)  play_note(NOTE_F4);
+     if(idx == 6)   play_note(NOTE_FS4);
+    if(idx == 7)  play_note(NOTE_G4);
+     if(idx == 8)   play_note(NOTE_GS4);
+    if(idx == 9)  play_note(NOTE_A4);
+     if(idx == 10)   play_note(NOTE_AS4);
+    if(idx == 11)  play_note(NOTE_B4);
+    if(idx == 12)  play_note(NOTE_C5);
+    if(idx == 13)  play_note(NOTE_CS5);
+    if(idx == 14)  play_note(NOTE_D5);
+    if(idx == 15)  play_note(NOTE_DS5);
+
+}
+*/
+
+
+
 void play_note(uint16_t freq) {
     uint8_t r, g, b;
     set_note_color(freq, &r, &g, &b);
@@ -273,3 +299,4 @@ int main() {
 
     return 0;
 }
+
