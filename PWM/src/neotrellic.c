@@ -7,10 +7,9 @@
 
 // === PWM AUDIO SETUP ===
 #define BUZZER_PIN 15  // Change this to whatever GPIO pin you want to use
-#define SYS_CLK_FREQ 150000000  // RP2350 runs at 150 MHz (RP2040 is 125 MHz)
+#define SYS_CLK_FREQ 150000000  // RP2350 runs at 150 MHz
 
 // Musical notes (frequencies in Hz) - C Major scale across 2 octaves
-// This uses whole steps and half steps that are MUCH easier to hear!
 static const uint16_t notes[16] = {
     262,  // C4  - Button 0  (Do)
     294,  // D4  - Button 1  (Re)
@@ -53,9 +52,6 @@ void pwm_audio_init(void) {
            BUZZER_PIN, slice_num, SYS_CLK_FREQ);
 }
 
-// Play a tone at specified frequency using the correct formula from project overview
-// f_note = f_clk / (TOP + 1)
-// Therefore: TOP = (f_clk / f_note) - 1
 void pwm_play_tone(uint16_t frequency) {
     if (frequency == 0) {
         pwm_set_enabled(slice_num, false);
@@ -93,7 +89,7 @@ void stop_note(void) {
     pwm_play_tone(0);
 }
 
-// === EXISTING CODE BELOW ===
+// === UNCHANGED CODE BELOW ===
 
 bool neotrellis_reset(void) {
     uint8_t dum = 0xFF;
