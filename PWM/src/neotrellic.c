@@ -4,6 +4,7 @@
 #include "hardware/pwm.h"
 #include <string.h>
 #include <stdio.h>
+#include "lcd.h"
 
 // === PWM AUDIO SETUP ===
 #define BUZZER_PIN 15  // Change this to whatever GPIO pin you want to use
@@ -359,84 +360,101 @@ void set_led_for_idx(int idx, bool on)
         neopixel_set_one_and_show(0, 0x20, 0x00, 0x00); 
         printf("🔴 Button 0 PRESSED - Red\n");
         play_note(0);
+        // LCD_note(0);
     }
     if (idx == 1)  { 
         neopixel_set_one_and_show(1, 0x00, 0x20, 0x00); 
         printf("🟢 Button 1 PRESSED - Green\n");
         play_note(1);
+        // LCD_note(1);
     }
     if (idx == 2)  { 
         neopixel_set_one_and_show(2, 0x00, 0x00, 0x20); 
         printf("🔵 Button 2 PRESSED - Blue\n");
         play_note(2);
+        // LCD_note(2);
     }
     if (idx == 3)  { 
         neopixel_set_one_and_show(3, 0x20, 0x20, 0x00); 
         printf("🟡 Button 3 PRESSED - Yellow\n");
         play_note(3);
+        // LCD_note(03);
     }
 
     if (idx == 4)  { 
         neopixel_set_one_and_show(4, 0x20, 0x00, 0x20); 
         printf("🟣 Button 4 PRESSED - Magenta\n");
         play_note(4);
+        // LCD_note(04);
     }
     if (idx == 5)  { 
         neopixel_set_one_and_show(5, 0x00, 0x20, 0x20); 
         printf("🔷 Button 5 PRESSED - Cyan\n");
         play_note(5);
+        // LCD_note(05);
     }
     if (idx == 6)  { 
         neopixel_set_one_and_show(6, 0x10, 0x10, 0x20); 
         printf("💙 Button 6 PRESSED - Bluish\n");
         play_note(6);
+        // LCD_note(06);
     }
     if (idx == 7)  { 
         neopixel_set_one_and_show(7, 0x20, 0x10, 0x00); 
         printf("🟠 Button 7 PRESSED - Orange\n");
         play_note(7);
+        // LCD_note(7);
     }
 
     if (idx == 8)  { 
         neopixel_set_one_and_show(8, 0x10, 0x20, 0x00); 
         printf("🌿 Button 8 PRESSED - Yellow-Green\n");
         play_note(8);
+        // LCD_note(8);
     }
     if (idx == 9)  { 
         neopixel_set_one_and_show(9, 0x00, 0x10, 0x20); 
         printf("🌊 Button 9 PRESSED - Teal\n");
         play_note(9);
+        // LCD_note(9);
     }
     if (idx == 10) { 
         neopixel_set_one_and_show(10, 0x20, 0x00, 0x10); 
         printf("💗 Button 10 PRESSED - Pink-Red\n");
         play_note(10);
+        // LCD_note(10);
     }
     if (idx == 11) { 
         neopixel_set_one_and_show(11, 0x10, 0x00, 0x20); 
         printf("💜 Button 11 PRESSED - Violet\n");
         play_note(11);
+        // LCD_note(11);
     }
 
     if (idx == 12) { 
         neopixel_set_one_and_show(12, 0x05, 0x20, 0x05); 
         printf("🍃 Button 12 PRESSED - Light Green\n");
         play_note(12);
+        // LCD_note(12);
+        
     }
     if (idx == 13) { 
         neopixel_set_one_and_show(13, 0x20, 0x05, 0x05); 
         printf("❤️  Button 13 PRESSED - Light Red\n");
         play_note(13);
+        // LCD_note(13);
     }
     if (idx == 14) { 
         neopixel_set_one_and_show(14, 0x05, 0x05, 0x20); 
         printf("💎 Button 14 PRESSED - Light Blue\n");
         play_note(14);
+        // LCD_note(14);
     }
     if (idx == 15) { 
         neopixel_set_one_and_show(15, 0x20, 0x10, 0x20); 
         printf("🌸 Button 15 PRESSED - Lavender\n");
         play_note(15);
+        // LCD_note(15);
     }
 }
 
@@ -487,11 +505,13 @@ bool neotrellis_poll_buttons(int *idx_out)
                 result_idx = idx;
                 found_press = true;
                 printf("[neo] Button %d PRESSED (keynum=%u)\n", idx, keynum);
+                LCD_note(idx);
             }
         }
         else if (edge == SEESAW_KEYPAD_EDGE_FALLING) {
             set_led_for_idx(idx, false);
             printf("[neo] Button %d RELEASED (keynum=%u)\n", idx, keynum);
+            LCD_Clear(0x00);
         }
     }
     
