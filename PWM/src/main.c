@@ -4,7 +4,7 @@
 #include "seesaw.h"
 #include "neotrellis.h"
 #include "tusb_config.h"
-
+#include "lcd.h"
 
 static void scan_i2c(void) {
     printf("I2C scan:\n");
@@ -51,7 +51,7 @@ int main() {
     seesaw_write(NEOTRELLIS_ADDR, SEESAW_NEOPIXEL_BASE, NEOPIXEL_SPEED, &speed, 1);
     sleep_ms(300);
 
-
+    LCD_start();
     neotrellis_rainbow_startup();
     sleep_ms(200);
 
@@ -73,6 +73,7 @@ while (1) {
     int idx = -1;
     
     if (neotrellis_poll_buttons(&idx)) {
+        //LCD_note(idx);
         printf("Button %d pressed!\n", idx);
     }
     
