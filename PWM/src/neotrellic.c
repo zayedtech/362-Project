@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include "lcd.h"
 
+extern void play_note(int idx);
+extern void stop_note(void);
+
 // === PWM AUDIO SETUP ===
 #define BUZZER_PIN 15  // Change this to whatever GPIO pin you want to use
 #define SYS_CLK_FREQ 150000000  // RP2350 runs at 150 MHz
@@ -37,58 +40,6 @@ static const char* note_names[16] = {
 };
 
 static uint slice_num;
-
-// Initialize PWM for audio output
-void pwm_audio_init(void) {
-    gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);
-    slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
-    
-    // Start with PWM disabled
-    pwm_set_enabled(slice_num, false);
-    
-    // Set clock divider to 1 (no division) for maximum precision
-    pwm_set_clkdiv(slice_num, 1.0f);
-    
-    printf("[PWM] Audio init: GPIO %d, Slice %d, Clock %d Hz\n", 
-           BUZZER_PIN, slice_num, SYS_CLK_FREQ);
-}
-
-void pwm_play_tone(uint16_t frequency) {
-    if (frequency == 0) {
-        pwm_set_enabled(slice_num, false);
-        printf("♪ Audio OFF\n");
-        return;
-    }
-    
-    // Calculate TOP value: TOP = (f_clk / f_note) - 1
-    uint32_t top = (SYS_CLK_FREQ / frequency) - 1;
-    
-    // Set 50% duty cycle for clean square wave
-    uint32_t level = top / 2;
-    
-    pwm_set_wrap(slice_num, top);
-    pwm_set_chan_level(slice_num, PWM_CHAN_A, level);
-    pwm_set_enabled(slice_num, true);
-    
-    // Calculate actual frequency for verification
-    float actual_freq = (float)SYS_CLK_FREQ / (top + 1);
-    
-    printf("♪ Playing %d Hz (actual: %.1f Hz, TOP=%u)\n", 
-           frequency, actual_freq, top);
-}
-
-// Play a note by button index
-void play_note(int idx) {
-    if (idx < 0 || idx >= 16) return;
-    
-    pwm_play_tone(notes[idx]);
-    printf("🎵 Note: %s (%d Hz)\n", note_names[idx], notes[idx]);
-}
-
-// Stop playing
-void stop_note(void) {
-    pwm_play_tone(0);
-}
 
 // === UNCHANGED CODE BELOW ===
 
